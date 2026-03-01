@@ -49,7 +49,10 @@ import { HttpError } from './utils/errors';
 import { shutdown } from './utils/graceful-shutdown';
 import { logger } from './utils/logger';
 
-sourceMapSupport.install();
+if (!globalThis.Bun) {
+  sourceMapSupport.install();
+}
+
 
 declare module 'fastify' {
   interface FastifyRequest {

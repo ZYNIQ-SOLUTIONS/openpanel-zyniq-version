@@ -21,7 +21,10 @@ import { bootWorkers } from './boot-workers';
 import { register } from './metrics';
 import { logger } from './utils/logger';
 
-sourceMapSupport.install();
+if (!globalThis.Bun) {
+  sourceMapSupport.install();
+}
+
 
 async function start() {
   const collectDefaultMetrics = client.collectDefaultMetrics;

@@ -121,7 +121,7 @@
 - [x] Login navbar links updated to `zyniq.solutions`
 - [x] Public page footer updated to Zyniq brand
 - [x] Badge widget updated to Zyniq brand
-- [ ] Update favicon files in `apps/start/public/` (manual step — download from manifest CDN URLs)
+- [x] Update favicon files in `apps/start/public/` (Automated in deploy/setup.sh)
 - [ ] Update email templates with Zyniq branding (`packages/email/`)
 - [ ] Update marketing site branding (`apps/public/`)
 
@@ -185,10 +185,17 @@
 
 ---
 
-## 🚫 NOT DOING
+## 🚫 NOT DOING (FULL MIGRATION)
 
 | Item | Reason |
 |------|--------|
-| Migrate to Bun runtime | Too many native addon blockers — see docs/08-bun-migration-analysis.md |
+| Full Production Bun Migration | Prisma & Sharp blockers — implemented "Bun-safe" hybrid support instead. |
 | Migrate to Bun as package manager | pnpm workspace catalog feature is incompatible |
 | Upgrade from pnpm to npm/yarn | pnpm performance and workspace features are critical to this monorepo |
+
+## 🟡 COMPROMISE: Bun-Safe Hybrid Mode (Applied)
+- [x] Dual-runtime password hashing (`packages/auth`)
+- [x] Conditional `source-map-support` for Bun compatibility
+- [x] `bunfig.toml` added for local Bun development
+- [x] `deploy/setup.sh` updated with optional Bun installation
+- [x] `docs/09-bun-development.md` guide created

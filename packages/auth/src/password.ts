@@ -1,9 +1,15 @@
-import { hash, verify } from '@node-rs/argon2';
+import { hash as nodeHash, verify as nodeVerify } from '@node-rs/argon2';
 import { sha1 } from '@oslojs/crypto/sha1';
 import { encodeHexLowerCase } from '@oslojs/encoding';
 
+const IS_BUN = !!globalThis.Bun;
+
 export async function hashPassword(password: string): Promise<string> {
-  return await hash(password, {
+  if (IS_BUN) {
+    return await Bun.password.hash(password, 'argon2id');
+  }
+
+  return await nodeHash(password, {
     memoryCost: 19456,
     timeCost: 2,
     outputLen: 32,
@@ -15,7 +21,11 @@ export async function verifyPasswordHash(
   hash: string,
   password: string,
 ): Promise<boolean> {
-  return await verify(hash, password);
+  if (IS_BUN) {
+    return await Bun.password.verify(password, hash);
+  }
+
+  return await nodeVerify(hash, password);
 }
 
 export async function verifyPasswordStrength(

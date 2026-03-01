@@ -1,0 +1,14 @@
+# Bun Configuration
+
+[install]
+# Use the same workspace logic as pnpm
+# Bun automatically looks for package.json workspaces, but we can be explicit
+# if needed. pnpm-workspace.yaml is already present.
+
+[run]
+# Enable experimental features if needed
+# experimentalBundler = true
+
+[test]
+# Test runner configuration
+# root = "."

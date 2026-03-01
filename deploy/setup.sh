@@ -49,7 +49,17 @@ else
   success "Docker Compose installed: $(docker compose version)"
 fi
 
-# ─── 3. Create App Directory ────────────────────────────────
+# ─── 3. Install Bun (Experimental) ──────────────────────────
+if command -v bun &>/dev/null; then
+  success "Bun already installed: $(bun --version)"
+else
+  info "Installing Bun runtime..."
+  # Install bun to /usr/local/bin for global access
+  curl -fsSL https://bun.sh/install | bash -s -- --bin /usr/local/bin
+  success "Bun installed: $(bun --version)"
+fi
+
+# ─── 4. Create App Directory ────────────────────────────────
 info "Creating app directory: $APP_DIR"
 mkdir -p "$APP_DIR"
 cd "$APP_DIR"
@@ -64,7 +74,29 @@ else
 fi
 success "Repo ready at $APP_DIR"
 
-# ─── 5. Generate Secrets ────────────────────────────────────
+# ─── 5. Branding Automation — Download Favicons ─────────────
+info "Downloading Zyniq branding favicons..."
+FAVICON_DIR="$APP_DIR/apps/start/public"
+mkdir -p "$FAVICON_DIR"
+
+# URLs from z-framework.manifest.json
+declare -A FAVICONS=(
+  ["android-chrome-192x192.png"]="https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/android-chrome-192x192.png"
+  ["android-chrome-512x512.png"]="https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/android-chrome-512x512.png"
+  ["apple-touch-icon.png"]="https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/apple-touch-icon.png"
+  ["favicon-16x16.png"]="https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/favicon-16x16.png"
+  ["favicon-32x32.png"]="https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/favicon-32x32.png"
+  ["favicon.ico"]="https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/favicon.ico"
+  ["site.webmanifest"]="https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/site.webmanifest"
+)
+
+for file in "${!FAVICONS[@]}"; do
+  info "Fetching $file..."
+  curl -fsSL "${FAVICONS[$file]}" -o "$FAVICON_DIR/$file"
+done
+success "Branding assets ready"
+
+# ─── 6. Generate Secrets ────────────────────────────────────
 info "Generating secrets..."
 
 POSTGRES_PASSWORD=$(openssl rand -hex 20)
