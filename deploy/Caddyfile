@@ -1,0 +1,46 @@
+{
+	email admin@zyniq.solutions
+}
+
+(basic-auth) {
+	basicauth {
+		{$CADDY_ADMIN_USER} {$CADDY_ADMIN_HASH}
+	}
+}
+
+# ─── Main App ───────────────────────────────────────────────
+
+admin.zyniq.cloud {
+	reverse_proxy analytics-dashboard:3000
+}
+
+api.zyniq.cloud {
+	reverse_proxy analytics-api:3333
+}
+
+# ─── Database UIs ───────────────────────────────────────────
+
+pgadmin.zyniq.cloud {
+	import basic-auth
+	reverse_proxy pgadmin:80
+}
+
+mongo.zyniq.cloud {
+	import basic-auth
+	reverse_proxy mongo-express:8081
+}
+
+qdrant.zyniq.cloud {
+	import basic-auth
+	reverse_proxy qdrant:6333
+}
+
+redis.zyniq.cloud {
+	import basic-auth
+	reverse_proxy redisinsight:5540
+}
+
+kafka.zyniq.cloud {
+	import basic-auth
+	reverse_proxy kafka-ui:8080
+}

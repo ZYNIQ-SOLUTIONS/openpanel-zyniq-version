@@ -2,10 +2,10 @@
  * Utility functions for generating page titles
  */
 
-const BASE_TITLE = 'OpenPanel.dev';
+const BASE_TITLE = 'Zyniq Analytics';
 
 /**
- * Creates a hierarchical title with the format: "Page Title | Section | OpenPanel.dev"
+ * Creates a hierarchical title with the format: "Page Title | Section | Zyniq Analytics"
  */
 export function createTitle(
   pageTitle: string,

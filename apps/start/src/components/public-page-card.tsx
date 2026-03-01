@@ -35,12 +35,12 @@ export function PublicPageCard({
           <div className="p-6 text-sm max-w-sm col gap-1 text-muted-foreground">
             <p>
               Powered by{' '}
-              <a href="https://openpanel.dev" className="font-medium">
-                OpenPanel.dev
+              <a href="https://zyniq.solutions" className="font-medium">
+                Zyniq Analytics
               </a>
               {' · '}
-              <a href="https://dashboard.openpanel.dev/onboarding">
-                Try it for free today!
+              <a href="https://zyniq.solutions">
+                Zyniq Solutions
               </a>
             </p>
           </div>

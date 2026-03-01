@@ -1,0 +1,54 @@
+{
+    "name": "OpenPanel ZYNIQ version",
+    "version": "1.0.0",
+    "brand": "ZYNIQ",
+    "fonts": "",
+    "icons": "",
+    "assets": {
+        "favicon": {
+            "android-chrome-192x192.png": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/android-chrome-192x192.png",
+            "android-chrome-512x512.png": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/android-chrome-512x512.png",
+            "apple-touch-icon.png": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/apple-touch-icon.png",
+            "favicon-16x16.png": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/favicon-16x16.png",
+            "favicon-32x32.png": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/favicon-32x32.png",
+            "favicon.ico": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/favicon.ico",
+            "site.webmanifest": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/favicon/site.webmanifest"
+        },
+        "logo-icon": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/GRAY_SIGN_LOGO%2BCLOUD_LOGO+(1).png",
+        "logo-text": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/CLOUD_TEXT_LOGO.png",
+        "logo-icon-text": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/CLOUD_LOGO%2BTEXT.png",
+        "logo-tag": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/Group+28.png",
+        "logo-merged": "https://core.zyniq.solutions/file/zyniqsolutionsbucket/brand-assets/ZYNIQ_LOGO_EMERGED.png"
+    },
+    "static-pages": {
+        "privacy-policy": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/legal-pages/privacy-policy.html",
+        "terms-of-service": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/legal-pages/terms-of-service.html",
+        "cookie-policy": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/legal-pages/cookie-policy.html",
+        "refund-policy": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/legal-pages/refund-policy.html",
+        "cancellation-policy": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/legal-pages/cancellation-policy.html",
+        "shipping-policy": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/legal-pages/shipping-policy.html",
+        "return-policy": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/legal-pages/return-policy.html",
+        "disclaimer": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/legal-pages/disclaimer.html",
+        "terms-and-conditions": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/legal-pages/terms-and-conditions.html"
+    },
+    "social-media": {
+        "facebook": "https://www.facebook.com/zyniqsolutions",
+        "facebook-icon": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/social-media-icons/facebook.png",
+        "x/twitter": "https://x.com/zyniq_solutions",
+        "x/twitter-icon": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/social-media-icons/twitter.png",
+        "instagram": "https://www.instagram.com/zyniq_solutions/",
+        "instagram-icon": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/social-media-icons/instagram.png",
+        "linkedin": "https://www.linkedin.com/company/zyniq-solutions",
+        "linkedin-icon": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/social-media-icons/linkedin.png",
+        "youtube": "https://www.youtube.com/@zyniq.solutions",
+        "youtube-icon": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/social-media-icons/youtube.png",
+        "tiktok": "https://www.tiktok.com/@zyniq.solutions",
+        "tiktok-icon": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/social-media-icons/tiktok.png",
+        "github": "https://github.com/ZYNIQ-SOLUTIONS",
+        "github-icon": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/social-media-icons/github.png",
+        "patreon": "https://patreon.com/ZYNIQSolutions",
+        "patreon-icon": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/social-media-icons/patreon.png",
+        "twitch": "https://www.twitch.tv/zyniqsolutions",
+        "twitch-icon": "https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/social-media-icons/twitch.png"
+    }
+}

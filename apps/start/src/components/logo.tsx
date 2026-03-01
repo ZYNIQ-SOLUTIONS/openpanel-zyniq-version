@@ -1,5 +1,14 @@
 import { cn } from '@/utils/cn';
 
+// Brand assets sourced from z-framework.manifest.json (ZYNIQ brand)
+const BRAND = {
+  logoIcon:
+    'https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/GRAY_SIGN_LOGO%2BCLOUD_LOGO+(1).png',
+  logoIconText:
+    'https://core.zyniq.solutions/cdn/file/zyniqsolutionsbucket/brand-assets/CLOUD_LOGO%2BTEXT.png',
+  siteUrl: 'https://zyniq.solutions',
+} as const;
+
 interface LogoProps {
   className?: string;
 }
@@ -7,9 +16,9 @@ interface LogoProps {
 export function LogoSquare({ className }: LogoProps) {
   return (
     <img
-      src="/logo.svg"
-      className={cn('rounded-md', className)}
-      alt="Openpanel logo"
+      src={BRAND.logoIcon}
+      className={cn('object-contain', className)}
+      alt="Zyniq Solutions logo"
     />
   );
 }
@@ -19,8 +28,11 @@ export function Logo({ className }: LogoProps) {
     <div
       className={cn('flex items-center gap-2 text-xl font-medium', className)}
     >
-      <LogoSquare className="max-h-8" />
-      <span>openpanel.dev</span>
+      <img
+        src={BRAND.logoIconText}
+        className="max-h-8 object-contain"
+        alt="Zyniq Solutions"
+      />
     </div>
   );
 }

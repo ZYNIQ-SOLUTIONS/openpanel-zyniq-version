@@ -16,30 +16,30 @@ export function LoginNavbar({ className }: { className?: string }) {
         className,
       )}
     >
-      <a href="https://openpanel.dev" className="row items-center gap-2">
+      <a href="https://zyniq.solutions" className="row items-center gap-2">
         <LogoSquare className="size-8 shrink-0" />
         <span className="font-medium text-sm text-muted-foreground">
-          {isSelfHosted ? 'Self-hosted analytics' : 'OpenPanel.dev'}
+          {isSelfHosted ? 'Self-hosted analytics' : 'Zyniq Analytics'}
         </span>
       </a>
       <nav className="max-md:hidden">
         <ul className="row gap-4 items-center [&>li>a]:text-sm [&>li>a]:text-muted-foreground [&>li>a]:hover:underline">
           <li>
-            <a href="https://openpanel.dev">OpenPanel Cloud</a>
+            <a href="https://zyniq.solutions">Zyniq Solutions</a>
           </li>
           <li>
-            <a href="https://openpanel.dev/compare/mixpanel-alternative">
-              Mixpanel alternative
+            <a href="https://zyniq.solutions/analytics">
+              Analytics Platform
             </a>
           </li>
           <li>
-            <a href="https://openpanel.dev/compare/posthog-alternative">
-              Posthog alternative
+            <a href="https://zyniq.solutions/privacy">
+              Privacy-first
             </a>
           </li>
           <li>
-            <a href="https://openpanel.dev/articles/open-source-web-analytics">
-              Open source analytics
+            <a href="https://zyniq.solutions/docs">
+              Documentation
             </a>
           </li>
         </ul>
@@ -63,38 +63,38 @@ export function LoginNavbar({ className }: { className?: string }) {
               <ul className="flex flex-col *:text-sm *:text-muted-foreground">
                 <li>
                   <a
-                    href="https://openpanel.dev"
+                    href="https://zyniq.solutions"
                     className="block px-4 py-2 hover:bg-accent hover:text-accent-foreground"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    OpenPanel Cloud
+                    Zyniq Solutions
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://openpanel.dev/compare/mixpanel-alternative"
+                    href="https://zyniq.solutions/analytics"
                     className="block px-4 py-2 hover:bg-accent hover:text-accent-foreground"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Posthog alternative
+                    Analytics Platform
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://openpanel.dev/compare/mixpanel-alternative"
+                    href="https://zyniq.solutions/privacy"
                     className="block px-4 py-2 hover:bg-accent hover:text-accent-foreground"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Mixpanel alternative
+                    Privacy-first
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://openpanel.dev/articles/open-source-web-analytics"
+                    href="https://zyniq.solutions/docs"
                     className="block px-4 py-2 hover:bg-accent hover:text-accent-foreground"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Open source analytics
+                    Documentation
                   </a>
                 </li>
               </ul>

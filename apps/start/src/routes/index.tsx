@@ -60,8 +60,8 @@ function LandingPage() {
         <div className="col gap-4">
           <LogoSquare className="w-full max-w-14 md:max-w-24" />
           <PageHeader
-            description="The best web and product analytics tool out there (our honest opinion)."
-            title="Welcome to OpenPanel.dev"
+            description="Advanced analytics, privacy-first, powered by Zyniq Solutions."
+            title="Welcome to Zyniq Analytics"
           />
         </div>
 
