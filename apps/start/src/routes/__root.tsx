@@ -33,12 +33,23 @@ interface MyRouterContext extends ConfigResonse {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   beforeLoad: async ({ context }) => {
-    const [session, cookies] = await Promise.all([
-      context.queryClient.ensureQueryData(
-        context.trpc.auth.session.queryOptions()
-      ),
-      getCookiesFn().catch(() => ({}) as Record<string, string>),
-    ]);
+    const session = await context.queryClient.ensureQueryData(
+      context.trpc.auth.session.queryOptions()
+    ).catch(() => null);
+
+    if (!session || !session.userId) {
+      const keycloakUrl = import.meta.env.VITE_KEYCLOAK_URL;
+      const realm = import.meta.env.VITE_KEYCLOAK_REALM;
+      const clientId = import.meta.env.VITE_KEYCLOAK_CLIENT_ID;
+      const redirectUri = encodeURIComponent(window.location.origin);
+      
+      if (keycloakUrl && realm && clientId) {
+        window.location.href = `${keycloakUrl}/realms/${realm}/protocol/openid-connect/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=openid`;
+        return;
+      }
+    }
+
+    const cookies = await getCookiesFn().catch(() => ({}) as Record<string, string>);
 
     return { session, cookies };
   },

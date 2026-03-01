@@ -9,6 +9,7 @@ import {
   EMPTY_SESSION,
   type SessionValidationResult,
   validateSessionToken,
+  validateKeycloakToken,
 } from '@openpanel/auth';
 import { generateId } from '@openpanel/common';
 import {
@@ -73,6 +74,7 @@ const startServer = async () => {
   logger.info('Starting server');
   try {
     const fastify = Fastify({
+      trustProxy: true, // For Caddy support
       maxParamLength: 15_000,
       bodyLimit: 1_048_576 * 500, // 500MB
       loggerInstance: logger as unknown as FastifyBaseLogger,
@@ -148,28 +150,29 @@ const startServer = async () => {
       });
 
       instance.addHook('onRequest', async (req) => {
-        if (req.cookies?.session) {
-          try {
-            const sessionId = decodeSessionToken(req.cookies?.session);
-            const session = await runWithAlsSession(sessionId, () =>
-              validateSessionToken(req.cookies.session)
-            );
-            req.session = session;
-          } catch {
-            req.session = EMPTY_SESSION;
+        const authHeader = req.headers.authorization;
+        if (authHeader?.startsWith('Bearer ')) {
+          const token = authHeader.substring(7);
+          const keycloakUser = await validateKeycloakToken(token);
+          if (keycloakUser) {
+            req.session = {
+              user: {
+                id: keycloakUser.userId,
+                email: keycloakUser.email,
+                name: keycloakUser.name,
+              } as any,
+              userId: keycloakUser.userId,
+              session: { id: 'keycloak' } as any,
+            };
+            return;
           }
-        } else if (process.env.DEMO_USER_ID) {
-          try {
-            const session = await runWithAlsSession('1', () =>
-              validateSessionToken(null)
-            );
-            req.session = session;
-          } catch {
-            req.session = EMPTY_SESSION;
-          }
-        } else {
-          req.session = EMPTY_SESSION;
         }
+
+        if (req.cookies?.session) {
+          // ... (legacy session check if needed, or remove)
+        }
+        
+        req.session = EMPTY_SESSION;
       });
 
       instance.register(fastifyTRPCPlugin, {

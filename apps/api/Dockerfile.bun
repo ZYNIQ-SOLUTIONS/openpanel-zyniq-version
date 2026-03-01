@@ -1,0 +1,40 @@
+FROM oven/bun:1-slim AS base
+WORKDIR /app
+
+# Install dependencies needed for native addons (argon2, sharp, etc.)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+    openssl \
+    libssl3 \
+    curl \
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy workspace configuration
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/api/package.json ./apps/api/
+COPY packages/ ./packages/
+# (Only copying necessary packages would be better, but this is simpler for now)
+
+# Install dependencies using Bun (respecting pnpm lockfile if possible, or fresh install)
+RUN bun install
+
+# Build the app (if needed, though Bun can run TS directly)
+# For production, we still might want a build step for optimizations
+COPY apps/api ./apps/api
+RUN bun run --filter @openpanel/api build
+
+FROM oven/bun:1-slim AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY --from=base /app/node_modules ./node_modules
+COPY --from=base /app/apps/api ./apps/api
+COPY --from=base /app/packages ./packages
+
+WORKDIR /app/apps/api
+EXPOSE 3000
+
+CMD ["bun", "run", "src/index.ts"]

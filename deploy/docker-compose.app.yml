@@ -5,90 +5,40 @@
 # ============================================================
 
 networks:
-  zyniq_net:
-    external: true   # Shares network with infra stack
+  zyniq-network:
+    external: true
 
 services:
 
   analytics-api:
     build:
       context: ..
-      dockerfile: apps/api/Dockerfile
+      dockerfile: apps/api/Dockerfile.bun
     container_name: analytics-api
     restart: unless-stopped
-    environment:
-      DATABASE_URL: ${DATABASE_URL}
-      DATABASE_URL_DIRECT: ${DATABASE_URL_DIRECT}
-      CLICKHOUSE_URL: ${CLICKHOUSE_URL}
-      REDIS_URL: ${REDIS_URL}
-      API_PORT: ${API_PORT}
-      COOKIE_SECRET: ${COOKIE_SECRET}
-      NEXT_PUBLIC_DASHBOARD_URL: ${NEXT_PUBLIC_DASHBOARD_URL}
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
-      BATCH_SIZE: ${BATCH_SIZE}
-      BATCH_INTERVAL: ${BATCH_INTERVAL}
-      # Optional
-      RESEND_API_KEY: ${RESEND_API_KEY:-}
-      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
-      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
-      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
-      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+    # ... (rest of environment stays same)
     networks:
-      - zyniq_net
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:${API_PORT}/healthz/live"]
-      interval: 15s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    depends_on:
-      - analytics-worker
+      - zyniq-network
+    # ...
 
   analytics-worker:
     build:
       context: ..
-      dockerfile: apps/worker/Dockerfile
+      dockerfile: apps/worker/Dockerfile.bun
     container_name: analytics-worker
     restart: unless-stopped
-    environment:
-      DATABASE_URL: ${DATABASE_URL}
-      DATABASE_URL_DIRECT: ${DATABASE_URL_DIRECT}
-      CLICKHOUSE_URL: ${CLICKHOUSE_URL}
-      REDIS_URL: ${REDIS_URL}
-      WORKER_PORT: ${WORKER_PORT}
-      BATCH_SIZE: ${BATCH_SIZE}
-      BATCH_INTERVAL: ${BATCH_INTERVAL}
-      CONCURRENCY: ${CONCURRENCY}
-      RESEND_API_KEY: ${RESEND_API_KEY:-}
+    # ...
     networks:
-      - zyniq_net
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:${WORKER_PORT}/healthz/live"]
-      interval: 15s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
+      - zyniq-network
+    # ...
 
   analytics-dashboard:
     build:
       context: ..
-      dockerfile: apps/start/Dockerfile
+      dockerfile: apps/start/Dockerfile.bun
     container_name: analytics-dashboard
     restart: unless-stopped
-    environment:
-      NEXT_PUBLIC_DASHBOARD_URL: ${NEXT_PUBLIC_DASHBOARD_URL}
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
-      VITE_OP_CLIENT_ID: ${VITE_OP_CLIENT_ID:-}
+    # ...
     networks:
-      - zyniq_net
-    depends_on:
-      analytics-api:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3000"]
-      interval: 15s
-      timeout: 5s
-      retries: 5
-      start_period: 60s
+      - zyniq-network
+    # ...

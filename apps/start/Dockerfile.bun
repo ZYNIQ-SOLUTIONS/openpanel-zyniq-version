@@ -1,0 +1,36 @@
+FROM oven/bun:1-slim AS base
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+    openssl \
+    libssl3 \
+    curl \
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/start/package.json ./apps/start/
+COPY packages/ ./packages/
+
+RUN bun install
+
+COPY apps/start ./apps/start
+# TanStack Start build
+RUN bun run --filter @openpanel/start build
+
+FROM oven/bun:1-slim AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY --from=base /app/node_modules ./node_modules
+COPY --from=base /app/apps/start ./apps/start
+COPY --from=base /app/packages ./packages
+
+WORKDIR /app/apps/start
+EXPOSE 3000
+
+# TanStack Start runs on a specific output directory usually
+CMD ["bun", "run", ".output/server/index.mjs"]
