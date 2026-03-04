@@ -13,8 +13,8 @@ const sellingPoints = [
     render: () => (
       <SellingPoint
         bgImage="/img-1.webp"
-        title="Best open-source alternative"
-        description="Mixpanel too expensive, Google Analytics has no privacy, Amplitude old and boring"
+        title="ZYNIQ Cloud Analytics"
+        description="Enterprise-grade web analytics built by ZYNIQ Solutions. Fast, private, and fully self-hosted."
       />
     ),
   },
@@ -23,8 +23,8 @@ const sellingPoints = [
     render: () => (
       <SellingPoint
         bgImage="/img-2.webp"
-        title="Fast and reliable"
-        description="Never miss a beat with our real-time analytics"
+        title="Real-Time Intelligence"
+        description="Never miss a beat with sub-second analytics powered by ClickHouse and ZYNIQ's event pipeline."
       />
     ),
   },
@@ -33,8 +33,8 @@ const sellingPoints = [
     render: () => (
       <SellingPoint
         bgImage="/img-3.webp"
-        title="Easy to use"
-        description="Compared to other tools we have kept it simple"
+        title="Simple & Powerful"
+        description="Beautiful dashboards, intuitive reports, and AI-assisted insights — analytics that just works."
       />
     ),
   },
@@ -43,8 +43,8 @@ const sellingPoints = [
     render: () => (
       <SellingPoint
         bgImage="/img-4.webp"
-        title="Privacy by default"
-        description="We have built our platform with privacy at its heart"
+        title="Privacy by Default"
+        description="Your data stays on your infrastructure. GDPR-compliant, no third-party tracking, ever."
       />
     ),
   },
@@ -53,8 +53,8 @@ const sellingPoints = [
     render: () => (
       <SellingPoint
         bgImage="/img-5.webp"
-        title="Open source"
-        description="You can inspect the code and self-host if you choose"
+        title="Part of ZYNIQ Cloud"
+        description="Seamlessly integrated with the ZYNIQ Studio ecosystem — SSO, Brain AI, and the full agent fleet."
       />
     ),
   },
@@ -63,7 +63,6 @@ const sellingPoints = [
 export function LoginLeftPanel() {
   return (
     <div className="relative h-screen overflow-hidden">
-      {/* Carousel */}
       <div className="flex items-center justify-center h-full mt-24">
         <Carousel
           className="w-full h-full [&>div]:h-full [&>div]:min-h-full"
@@ -73,7 +72,7 @@ export function LoginLeftPanel() {
           }}
         >
           <CarouselContent className="h-full">
-            {sellingPoints.map((point, index) => (
+            {sellingPoints.map((point) => (
               <CarouselItem
                 key={`selling-point-${point.key}`}
                 className="p-8 pb-32 pt-0"

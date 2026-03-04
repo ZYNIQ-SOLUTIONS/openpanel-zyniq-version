@@ -2,6 +2,7 @@ import { Or } from '@/components/auth/or';
 import { SignInEmailForm } from '@/components/auth/sign-in-email-form';
 import { SignInGithub } from '@/components/auth/sign-in-github';
 import { SignInGoogle } from '@/components/auth/sign-in-google';
+import { SignInKeycloak } from '@/components/auth/sign-in-keycloak';
 import { LogoSquare } from '@/components/logo';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { PAGE_TITLES, createTitle } from '@/utils/title';
@@ -56,9 +57,9 @@ function LoginPage() {
                   Contact us if you have any issues.{' '}
                   <a
                     className="underline font-medium"
-                    href={`mailto:hello@openpanel.dev?subject=Login%20Issue%20-%20Correlation%20ID%3A%20${correlationId}`}
+                    href={`mailto:support@zyniq.solutions?subject=Login%20Issue%20-%20Correlation%20ID%3A%20${correlationId}`}
                   >
-                    hello[at]openpanel.dev
+                    support@zyniq.solutions
                   </a>
                 </p>
               </>
@@ -67,11 +68,22 @@ function LoginPage() {
         </Alert>
       )}
 
+      {/* Primary auth — ZYNIQ SSO */}
       <div className="space-y-4">
+        <SignInKeycloak type="sign-in" />
+      </div>
+
+      <Or />
+
+      {/* Secondary auth providers */}
+      <div className="space-y-3">
         <SignInGoogle type="sign-in" />
         <SignInGithub type="sign-in" />
       </div>
+
       <Or />
+
+      {/* Email/password fallback */}
       <SignInEmailForm />
     </div>
   );

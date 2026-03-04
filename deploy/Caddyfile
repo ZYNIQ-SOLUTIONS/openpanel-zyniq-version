@@ -1,46 +1,72 @@
 {
-	email admin@zyniq.solutions
+email admin@zyniq.solutions
 }
 
 (basic-auth) {
-	basicauth {
-		{$CADDY_ADMIN_USER} {$CADDY_ADMIN_HASH}
-	}
+basicauth {
+_ADMIN_USER} {$CADDY_ADMIN_HASH}
+}
 }
 
-# ─── Main App ───────────────────────────────────────────────
+(security-headers) {
+header {
+tent-Type-Options "nosniff"
+s "SAMEORIGIN"
+ "strict-origin-when-cross-origin"
+s-Policy "camera=(), microphone=(), geolocation=()"
+sport-Security "max-age=31536000; includeSubDomains; preload"
+}
+}
+
+# ─── Analytics Dashboard ────────────────────────────────────────
 
 admin.zyniq.cloud {
-	reverse_proxy analytics-dashboard:3000
+import security-headers
+reverse_proxy analytics-dashboard:3000
 }
+
+# ─── Analytics API ──────────────────────────────────────────────
 
 api.zyniq.cloud {
-	reverse_proxy analytics-api:3333
+import security-headers
+
+# CORS for Keycloak SSO
+@options method OPTIONS
+handle @options {
+Access-Control-Allow-Origin "https://admin.zyniq.cloud"
+Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Access-Control-Allow-Headers "Authorization, Content-Type, X-Requested-With"
+Access-Control-Allow-Credentials "true"
+Access-Control-Max-Age "86400"
+d 204
 }
 
-# ─── Database UIs ───────────────────────────────────────────
+reverse_proxy analytics-api:3333
+}
+
+# ─── Database UIs ───────────────────────────────────────────────
 
 pgadmin.zyniq.cloud {
-	import basic-auth
-	reverse_proxy pgadmin:80
+import basic-auth
+reverse_proxy pgadmin:80
 }
 
 mongo.zyniq.cloud {
-	import basic-auth
-	reverse_proxy mongo-express:8081
+import basic-auth
+reverse_proxy mongo-express:8081
 }
 
 qdrant.zyniq.cloud {
-	import basic-auth
-	reverse_proxy qdrant:6333
+import basic-auth
+reverse_proxy qdrant:6333
 }
 
 redis.zyniq.cloud {
-	import basic-auth
-	reverse_proxy redisinsight:5540
+import basic-auth
+reverse_proxy redisinsight:5540
 }
 
 kafka.zyniq.cloud {
-	import basic-auth
-	reverse_proxy kafka-ui:8080
+import basic-auth
+reverse_proxy kafka-ui:8080
 }
